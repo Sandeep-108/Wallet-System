@@ -12,7 +12,7 @@ public class WalletExceptionHandler {
 	
 	@ExceptionHandler(CustomException.class)
 	public ResponseEntity<ResponseDto<String>> walletExceptionHandeler(CustomException wex){
-		ResponseDto<String> walleteExDto= new ResponseDto<String>(wex.getErrorCode(), wex.getMessage(), "Error Occured");
+		ResponseDto<String> walleteExDto= new ResponseDto<String>(wex.getErrorCode(), wex.getMsg(), "Error Occured");
 		return new ResponseEntity<>(walleteExDto, HttpStatus.OK);
 	}
 
