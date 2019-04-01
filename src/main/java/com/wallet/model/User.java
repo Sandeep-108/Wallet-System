@@ -1,12 +1,16 @@
 package com.wallet.model;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 /**
  * 
  * @author sandy
@@ -19,12 +23,16 @@ public class User {
 	@Id
 	@GeneratedValue
 	private int userId;
+	@NotNull
 	private String name;
+	@NotNull
 	private String password;
+	@Email
+	@NotNull
 	private String email;
 	
 	@Transient
-	@OneToOne(
+	@OneToOne(fetch =FetchType.LAZY,
             cascade =  CascadeType.ALL,
             mappedBy = "user")
 	private Wallet myWallet;
@@ -71,7 +79,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", name=" + name + ", password=" + password + ", email=" + email
-				+ ", myWallet=" + myWallet + "]";
+				+ "]";
 	}
 	
 	

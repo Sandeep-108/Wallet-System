@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,7 @@ import com.wallet.exception.CustomException;
 import com.wallet.model.ResponseDto;
 import com.wallet.model.User;
 import com.wallet.service.UserServiceImpl;
+import com.wallet.util.Constants;
 
 /**
  * 
@@ -62,6 +64,8 @@ public class UserController {
 	 */
 	@GetMapping("/viewprofile")
 	public ResponseEntity<ResponseDto<User>> viewProfile(@RequestParam int userId) throws CustomException{
+		MDC.clear();
+		MDC.put(Constants.USER_ID, String.valueOf(userId));
 		log.info("Viewprofile user request: {}",userId);
 		return userService.viewUserProfile(userId);
 	}
@@ -73,6 +77,8 @@ public class UserController {
 	 */
 	@PutMapping("/editprofile")
 	public ResponseEntity<ResponseDto<User>> udateProfile(@RequestBody User user) throws CustomException{
+		MDC.clear();
+		MDC.put(Constants.USER_ID, String.valueOf(user.getUserId()));
 		log.info("Edit Profile user request: {}",user);
 		return userService.updateUserProfile(user);
 	}

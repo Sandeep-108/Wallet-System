@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wallet.model.ResponseDto;
 import com.wallet.model.TxnDetails;
 import com.wallet.service.TransactionHistoryServiceImpl;
+import com.wallet.util.Constants;
 
 /**
  * 
@@ -27,7 +29,6 @@ public class TransactionHistory {
 	
 	@Autowired
 	private TransactionHistoryServiceImpl transactionHistoryService;
-	
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 /**
  * 
@@ -36,6 +37,8 @@ public class TransactionHistory {
  */
 	@GetMapping("/user")
 	public ResponseEntity<ResponseDto<List<TxnDetails>>> getTxnHistory(@RequestParam int userId){
+		MDC.clear();
+		MDC.put(Constants.USER_ID, String.valueOf(userId));
 		log.info("Get Txn History Request with user id {}",userId);
 		return transactionHistoryService.getTxnHistory(userId);
 	}

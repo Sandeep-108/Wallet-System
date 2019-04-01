@@ -1,6 +1,5 @@
 package com.wallet.model;
 
-import java.util.Date;
 import com.wallet.util.Util;
 /**
  * 

@@ -53,9 +53,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<ResponseDto<User>> viewUserProfile(int userId) throws CustomException {
-		User user = userRepository.findById(userId).orElse(null);
-		if(user == null)
-			throw new CustomException(Constants.USER_NOT_FOUND,Constants.U1002_MSG);
+		User user = userRepository.findById(userId).orElseThrow(() -> new CustomException(Constants.USER_NOT_FOUND,Constants.U1002_MSG));
 		user.setWallet(walletRepository.findByUser(user));
 		ResponseDto<User> userDto =new ResponseDto<>("0","User Profile",user);
 		log.info("View Profile response {}",userDto);
@@ -64,9 +62,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ResponseEntity<ResponseDto<User>> updateUserProfile(User user) throws  CustomException {
-		User getUser = userRepository.findById(user.getUserId()).orElse(null);
-		if(getUser ==null)
-			throw new CustomException(Constants.USER_NOT_FOUND,Constants.U1002_MSG);
+		User getUser = userRepository.findById(user.getUserId()).orElseThrow(() -> new CustomException(Constants.USER_NOT_FOUND,Constants.U1002_MSG));
 		getUser =userRepository.save(user);
 		ResponseDto<User> userDto =new ResponseDto<>("0","profile update successfully successfuly",getUser);
 		log.info("Edit Profile response {}",userDto);

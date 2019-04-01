@@ -2,8 +2,11 @@ package com.wallet.service;
 
 import java.util.Date;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,15 +41,16 @@ public class WalletServiceImpl implements WalletService {
 	
 	@Override
 	public ResponseEntity<ResponseDto<Wallet>> addMoney(int walletId, double amount) throws CustomException {
-		Wallet wallet = walletRepository.findById(walletId).orElse(null);
+		Wallet wallet = walletRepository.findById(walletId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(walletId)));
 		User user = wallet.getUser();
+		MDC.put(Constants.USER_ID, String.valueOf(user.getUserId()));
 		if(amount<=0) {
 			log.info("Invalid Amount ");
 			throw new CustomException(Constants.INVALID_AMOUNT, Constants.W1001_MSG);
 		}
 		wallet.setAmount(wallet.getAmount()+amount);
 		walletRepository.save(wallet);
-		log.info("money debited from wallet {}",wallet);
+		log.info("money Added to wallet {}",wallet);
 		TransactionHistory txn = new TransactionHistory();
 		txn.setAmount(amount);
 		txn.setDrCr("CR");
@@ -64,8 +68,9 @@ public class WalletServiceImpl implements WalletService {
 			  throw new CustomException(Constants.SAME_WALLET, Constants.W1002_MSG);
 		if(amount<0) 
 			throw new CustomException(Constants.INVALID_AMOUNT, Constants.W1001_MSG);
-		Wallet payerWallet =walletRepository.findById(payerWalletId).orElse(null);
-		Wallet payeeWallet =walletRepository.findById(payeeWalletId).orElse(null);
+		Wallet payerWallet =walletRepository.findById(payerWalletId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(payerWalletId)));
+		Wallet payeeWallet =walletRepository.findById(payeeWalletId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(payeeWalletId)));
+		MDC.put(Constants.USER_ID, String.valueOf(payeeWallet.getUser().getUserId()));
 //Debit part
 		if(payerWallet.getAmount()<amount)
 			throw new CustomException(Constants.LOW_BALANCE, Constants.W1003_MSG);

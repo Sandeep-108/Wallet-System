@@ -3,6 +3,8 @@ package com.wallet.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityNotFoundException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,7 @@ public class TransactionHistoryServiceImpl implements TransactionHistoryService 
 	private final Logger log = LoggerFactory.getLogger(this.getClass());
 	@Override
 	public ResponseEntity<ResponseDto<List<TxnDetails>>> getTxnHistory(int userId) {
-		User user = userRepository.findById(userId).orElse(null);
+		User user = userRepository.findById(userId).orElseThrow(() -> new EntityNotFoundException(String.valueOf(userId)));
 		List<TxnDetails> txnList = txnHistoryRepository.findByUser(user).stream()
 				.map(TxnDetails::new).collect(Collectors.toList());
 		ResponseDto<List<TxnDetails>> txnDto =new ResponseDto<>("0", "Txn List", txnList);
