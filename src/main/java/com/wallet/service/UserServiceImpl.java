@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		User user = userRepository.findByEmailAndPassword(email, password);
 		if(user == null)
 			throw new CustomException(Constants.USER_LOGIN_FAILED,Constants.U1001_MSG);
+		user.setWallet(walletRepository.findByUser(user));
 		ResponseDto<User> userDto =new ResponseDto<>("0","Login successfuly successfuly",user);
 		log.info("Login user response {}",userDto);
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
@@ -64,6 +65,7 @@ public class UserServiceImpl implements UserService {
 	public ResponseEntity<ResponseDto<User>> updateUserProfile(User user) throws  CustomException {
 		User getUser = userRepository.findById(user.getUserId()).orElseThrow(() -> new CustomException(Constants.USER_NOT_FOUND,Constants.U1002_MSG));
 		getUser =userRepository.save(user);
+		getUser.setWallet(walletRepository.findByUser(user));
 		ResponseDto<User> userDto =new ResponseDto<>("0","profile update successfully successfuly",getUser);
 		log.info("Edit Profile response {}",userDto);
 		return new ResponseEntity<>(userDto, HttpStatus.OK);
