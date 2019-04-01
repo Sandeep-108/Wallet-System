@@ -2,7 +2,11 @@ package com.wallet.model;
 
 import java.util.Date;
 import com.wallet.util.Util;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 public class TxnDetails {
 
 	private int txnId;
@@ -58,6 +62,11 @@ public class TxnDetails {
 	}
 	public void setDescription(String description) {
 		Description = description;
+	}
+	@Override
+	public String toString() {
+		return "TxnDetails [txnId=" + txnId + ", Drcr=" + Drcr + ", OtherUsername=" + OtherUsername + ", TxnDate="
+				+ TxnDate + ", Description=" + Description + "]";
 	}
 	
 	

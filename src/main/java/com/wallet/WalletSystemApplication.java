@@ -2,7 +2,12 @@ package com.wallet;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+/**
+ * 
+ * Spring Boot Starter
+ * @author sandy
+ *
+ */
 @SpringBootApplication
 public class WalletSystemApplication {
 

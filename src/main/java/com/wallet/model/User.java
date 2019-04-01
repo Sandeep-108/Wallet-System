@@ -7,7 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 @Entity
 @Table(name ="User")
 public class User {
@@ -63,6 +67,11 @@ public class User {
 	}
 	public void setWallet(Wallet wallet) {
 		this.myWallet = wallet;
+	}
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", name=" + name + ", password=" + password + ", email=" + email
+				+ ", myWallet=" + myWallet + "]";
 	}
 	
 	

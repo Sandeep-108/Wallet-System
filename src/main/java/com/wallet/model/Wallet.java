@@ -9,7 +9,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 @Entity
 public class Wallet {
 	
@@ -48,6 +52,10 @@ public class Wallet {
 	}
 	public void setUser(User user) {
 		this.user = user;
+	}
+	@Override
+	public String toString() {
+		return "Wallet [walletId=" + walletId + ", amount=" + amount + ", user=" + user + "]";
 	}
 	
 	

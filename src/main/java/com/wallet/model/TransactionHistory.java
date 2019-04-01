@@ -11,7 +11,11 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 @Entity
 public class TransactionHistory {
 	
@@ -77,10 +81,12 @@ public class TransactionHistory {
 	public void setPostdate(Date postdate) {
 		this.postdate = postdate;
 	}
-	
-	
-	public void getDescription() {
-		
+	@Override
+	public String toString() {
+		return "TransactionHistory [txnId=" + txnId + ", user=" + user + ", drCr=" + drCr + ", payer_payee="
+				+ payer_payee + ", amount=" + amount + ", postdate=" + postdate + "]";
 	}
+	
+	
 	
 }

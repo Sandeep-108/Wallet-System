@@ -1,5 +1,10 @@
 package com.wallet.exception;
 
+/**
+ * 
+ * @author sandy
+ *
+ */
 public class UserException extends Exception{
 
 	private int errorCode;

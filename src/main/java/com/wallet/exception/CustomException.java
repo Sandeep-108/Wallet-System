@@ -1,5 +1,9 @@
 package com.wallet.exception;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 public class CustomException extends Exception{
 
 	private String errorCode;

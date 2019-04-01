@@ -1,5 +1,10 @@
 package com.wallet.model;
-
+/**
+ * 
+ * @author sandy
+ *
+ * @param <T>
+ */
 public class ResponseDto<T> {
 
 	private String code;
@@ -31,6 +36,10 @@ public class ResponseDto<T> {
 	}
 	public void setData(T data) {
 		this.data = data;
+	}
+	@Override
+	public String toString() {
+		return "ResponseDto [code=" + code + ", description=" + description + ", data=" + data + "]";
 	}
 	
 	

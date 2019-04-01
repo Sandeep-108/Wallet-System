@@ -1,5 +1,9 @@
 package com.wallet.model;
-
+/**
+ * 
+ * @author sandy
+ *
+ */
 public class AddMoneyReq {
 	
 	private int walletId;
@@ -23,6 +27,10 @@ public class AddMoneyReq {
 	}
 	public void setAmount(double amount) {
 		this.amount = amount;
+	}
+	@Override
+	public String toString() {
+		return "AddMoneyReq [walletId=" + walletId + ", amount=" + amount + "]";
 	}
 	
 	
